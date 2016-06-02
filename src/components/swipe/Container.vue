@@ -110,7 +110,7 @@
           this.leftIndex = index - 1
         }
         if ( index === this.pages.length - 1 ) {
-          this.rightIndex = 0;
+          this.rightIndex = 0
         } else {
           this.rightIndex = index + 1
         }
@@ -160,12 +160,19 @@
         }
       },
       touchEnd(){
+        if ( this.dragState.onAnimate || this.dragState.startTime === 0 )return
         this.dragState.verticalScrolling = false
+        /*
+         * 这么做是为了当快速切换的时候,this.dragState.startTime 还没来记得触发touchstart事件初始化就开始触发touchend,导致
+         * 时间参数还是上一次的参数,此时再去相减的话就会造成时间差变长
+         * */
         var interval = new Date() - this.dragState.startTime
+        this.dragState.startTime = 0
+
         if ( this.dragState.endOffsetX !== 0 && this.dragState.onDrag ) {
           this.dragState.onAnimate = true
           this.dragState.onDrag = false
-          if ( Math.abs(this.dragState.endOffsetX) > this.clientWidth / 2 || (Math.abs(this.dragState.endOffsetX) > 10 && interval < 300) ) {
+          if ( Math.abs(this.dragState.endOffsetX) > this.clientWidth / 2 || (Math.abs(this.dragState.endOffsetX) > 20 && interval < 500) ) {
             if ( this.dragState.endOffsetX > 0 ) {
               this.translate(this.clientWidth, true, ()=> {
                 this.setPagePostion(this.leftIndex, 'showPrev')
@@ -177,6 +184,7 @@
             }
           } else {
             this.translate(0, true)
+//            alert(`${Math.abs(this.dragState.endOffsetX)}:intertval:${interval}`)
           }
 //        等待理论上的动画时间结束后才开始
           setTimeout(()=> {
@@ -190,23 +198,23 @@
       translate(offset, auto, callback){
         var element = this.container
         if ( auto ) {
-          element.style.webkitTransition = 'all ' + this.speed + 'ms ease';
-          setTimeout(() => element.style.webkitTransform = `translate3d(${offset}px, 0, 0)`, 50);
-          var called = false;
+          element.style.webkitTransition = 'all ' + this.speed + 'ms ease'
+          setTimeout(() => element.style.webkitTransform = `translate3d(${offset}px, 0, 0)`, 50)
+          var called = false
           var transitionEndCallback = () => {
-            if ( called ) return;
-            called = true;
-            element.style.webkitTransition = '';
-            element.style.webkitTransform = '';
+            if ( called ) return
+            called = true
+            element.style.webkitTransition = ''
+            element.style.webkitTransform = ''
             if ( callback ) {
-              callback.apply(this, arguments);
+              callback.apply(this, arguments)
             }
             this.dragState.onAnimate = false
-          };
+          }
           once(element, 'webkitTransitionEnd', transitionEndCallback)
-          setTimeout(transitionEndCallback, this.speed + 100); // webkitTransitionEnd maybe not fire on lower version android.
+          setTimeout(transitionEndCallback, this.speed + 100) // webkitTransitionEnd maybe not fire on lower version android.
         } else {
-          element.style.webkitTransition = '';
+          element.style.webkitTransition = ''
           element.style.transform = `translate3d(${offset}px,0,0)`
         }
       },
