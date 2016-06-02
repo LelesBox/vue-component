@@ -12,6 +12,8 @@
 
 <script>
   import { Swipe, SwipeItem } from './components/swipe'
+  //  require('../component/vue-swiper.css')
+  //  import { Swipe, SwipeItem } from '../component/vue-swiper'
   export default {
     components: {
       Swipe,
@@ -30,10 +32,7 @@
 
   html * {
     box-sizing: border-box;
-    moz-user-select: -moz-none;
     -moz-user-select: none;
-    -o-user-select: none;
-    -khtml-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;

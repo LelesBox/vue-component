@@ -69,7 +69,6 @@
       return {
         index: 0,
         pages: [],
-        offset: 0,
         leftIndex: null,
         current: null,
         rightIndex: null,
@@ -123,11 +122,15 @@
       },
       touchStart(e){
         clearInterval(this.timer)
+        /*
+         * 时间放在这里是有讲究的,如果放在return语句的下面,就会遇到,touchstart时this.dragState.onAnimate为true,没有重新获得新时间
+         * 而endtouch时this.dragState.onAnimate刚好为false,这时候去比对时间差,这样会导致这时间差变大
+         * */
+        this.dragState.startTime = new Date()
         if ( this.dragState.onAnimate )return
         var touches = e.touches[ 0 ]
         this.dragState.startClientX = touches.clientX
         this.dragState.startClientY = touches.clientY
-        this.dragState.startTime = new Date()
       },
       touchMove(e){
         /*
@@ -160,15 +163,13 @@
         }
       },
       touchEnd(){
-        if ( this.dragState.onAnimate || this.dragState.startTime === 0 )return
+        if ( this.dragState.onAnimate )return
         this.dragState.verticalScrolling = false
         /*
          * 这么做是为了当快速切换的时候,this.dragState.startTime 还没来记得触发touchstart事件初始化就开始触发touchend,导致
          * 时间参数还是上一次的参数,此时再去相减的话就会造成时间差变长
          * */
         var interval = new Date() - this.dragState.startTime
-        this.dragState.startTime = 0
-
         if ( this.dragState.endOffsetX !== 0 && this.dragState.onDrag ) {
           this.dragState.onAnimate = true
           this.dragState.onDrag = false
@@ -184,7 +185,6 @@
             }
           } else {
             this.translate(0, true)
-//            alert(`${Math.abs(this.dragState.endOffsetX)}:intertval:${interval}`)
           }
 //        等待理论上的动画时间结束后才开始
           setTimeout(()=> {
