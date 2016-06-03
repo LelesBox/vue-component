@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <swipe class="swipe" :speed="300" :show-indicators="true" :auto="3000">
-      <swipe-item class="item-1">0</swipe-item>
+      <swipe-item class="item-1">
+        <img style="height: 100%;width: 100%" src="https://d13yacurqjgara.cloudfront.net/users/141317/screenshots/2753403/dribbb.png" alt="">
+      </swipe-item>
       <swipe-item class="item-2">1</swipe-item>
       <swipe-item class="item-3">2</swipe-item>
       <swipe-item class="item-4">3</swipe-item>
@@ -43,7 +45,7 @@
     height: 200px;
     width: 100%;
     /*background: blue;*/
-    font-size: 10em;
+    /*font-size: 10em;*/
     color: #ffffff;
     text-align: center;
   }

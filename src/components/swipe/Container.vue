@@ -220,11 +220,13 @@
       },
       autoScroll(){
         clearInterval(this.timer)
-        this.timer = setInterval(()=> {
-          this.translate(-this.clientWidth, true, ()=> {
-            this.setPagePostion(this.rightIndex, 'showNext')
-          })
-        }, this.auto)
+        if ( this.auto > 0 ) {
+          this.timer = setInterval(()=> {
+            this.translate(-this.clientWidth, true, ()=> {
+              this.setPagePostion(this.rightIndex, 'showNext')
+            })
+          }, this.auto)
+        }
       }
     }
   }
