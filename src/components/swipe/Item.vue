@@ -10,18 +10,12 @@
     position: absolute;
     display: none;
   }
-
   .swipe-item.active {
     display: block;
   }
 </style>
 <script>
   export default{
-    data(){
-      return {
-        msg: 'hello vue'
-      }
-    },
-    components: {}
+    name: 'mt-swipe-item'
   }
 </script>

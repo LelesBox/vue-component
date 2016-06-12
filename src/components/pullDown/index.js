@@ -3,6 +3,4 @@
  */
 import pulldownContainer from './container'
 
-export {
-  pulldownContainer
-}
+export default pulldownContainer

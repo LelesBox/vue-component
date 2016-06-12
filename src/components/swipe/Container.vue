@@ -32,9 +32,9 @@
   }
 
   .indicator {
-    border-radius: 100%;
-    height: 8px;
+    border-radius: 50%;
     width: 8px;
+    height: 8px;
     float: left;
     margin: 0 3px;
     background: #000000;
@@ -45,7 +45,8 @@
   }
 </style>
 <script type="text/ecmascript-6">
-  import { addClass, removeClass, addVendor, once } from './utils'
+  import { addClass, removeClass, once } from '../../common/js/utils'
+  import swipeItem from './Item.vue'
 
   export default{
     props: {
@@ -60,11 +61,13 @@
       showIndicators: {
         type: Boolean,
         default: true
+      },
+      prevent: {
+        type: Boolean,
+        default: false
       }
     },
-    ready(){
-      this.init()
-    },
+    events: {},
     data(){
       return {
         index: 0,
@@ -85,22 +88,50 @@
           onDrag: false,
           onAnimate: false,
           verticalScrolling: false
-        }
+        },
+        // 当swipeItem只有两个时，需要用到这两个临时元素，使用两个字段保存是为了防止过多的使用cloneNode方法，看setPagePostion方法
+        tmpEl1:null,
+        tmpEl2:null
       }
+    },
+    components: { swipeItem },
+    ready(){
+      this.init()
     },
     methods: {
       init(){
         this.container = this.$els.container
-        this.pages = this.container.children
-        this.clientWidth = this.$el.clientWidth
-        this.setPagePostion(0)
-        this.autoScroll()
+        //不能使用 this.pages = this.container.children，因为之后我们会对container做insert操作，会导致this.pages变化，
+        //而这里我们并不希望this.pages再出现动态的增加或者减少
+        this.pages = this.$children.map(item=>{
+          return item.$el
+        })
+        if ( this.pages.length === 0 )return
+        else if ( this.pages.length === 1 ) {
+          this.handleOnePage()
+        } else {
+          if( this.pages.length === 2 ) {
+            this.tmpEl1 = this.pages[0].cloneNode( true )
+            this.tmpEl2 = this.pages[1].cloneNode( true )
+            this.container.insertBefore( this.tmpEl1 , this.container.firstChild )
+            this.container.insertBefore( this.tmpEl2 , this.container.firstChild )
+          }
+          this.clientWidth = this.$el.clientWidth
+          this.setPagePosition( 0 )
+          clearInterval( this.timer )
+          this.autoScroll()
+        }
       },
-      setPagePostion(index, direction){
+      handleOnePage(){
+        this.current=this.pages[0]
+        this.current.style.display='block'
+        this.container.style.left='0'
+      },
+      setPagePosition(index, direction){
         if ( direction === 'showPrev' ) {
-          this.pages[ this.rightIndex ].style.display = 'none'
+          this.right.style.display = 'none'
         } else if ( direction === 'showNext' ) {
-          this.pages[ this.leftIndex ].style.display = 'none'
+          this.left.style.display = 'none'
         }
         this.index = index
         if ( index === 0 ) {
@@ -113,14 +144,30 @@
         } else {
           this.rightIndex = index + 1
         }
-        this.pages[ this.leftIndex ].style.transform = 'translateX(0)'
-        this.pages[ this.leftIndex ].style.display = 'block'
-        this.pages[ this.index ].style.transform = 'translateX(100%)'
-        this.pages[ this.index ].style.display = 'block'
-        this.pages[ this.rightIndex ].style.transform = 'translateX(200%)'
-        this.pages[ this.rightIndex ].style.display = 'block'
+        this.left = this.pages[ this.leftIndex ]
+        this.current = this.pages[ this.index ]
+        this.right = this.pages[ this.rightIndex ]
+        // 处理当只有2个切换项时的问题
+        if( this.pages.length === 2 ) {
+          this.tmpEl2.style.display = 'none'
+          this.tmpEl1.style.display = 'none'
+          if( index === 0 ){
+            this.left = this.tmpEl2
+          }else if( index === 1 ){
+            this.left = this.tmpEl1
+          }
+        }
+        this.left.style.transform = 'translateX(0)'
+        this.left.style.display = 'block'
+        this.current.style.transform = 'translateX(100%)'
+        this.current.style.display = 'block'
+        this.right.style.transform = 'translateX(200%)'
+        this.right.style.display = 'block'
       },
       touchStart(e){
+        if ( this.prevent ) {
+          e.preventDefault();
+        }
         clearInterval(this.timer)
         /*
          * 时间放在这里是有讲究的,如果放在return语句的下面,就会遇到,touchstart时this.dragState.onAnimate为true,没有重新获得新时间
@@ -133,6 +180,7 @@
         this.dragState.startClientY = touches.clientY
       },
       touchMove(e){
+        if( this.pages.length === 1 ) return
         /*
          * 0.当上下移动距离小于8左右移动距离小于10时,我们不为所动
          * 1.当手指上下移动距离超过10px,则此次的所有操作都不会触发左右滚动 (需要额外全局参数,this.verticalScrolling)
@@ -148,7 +196,10 @@
         var threshold = 5
 
         if ( this.dragState.onDrag ) {
+//          防止默认行为,阻止它操作上下移动
           e.preventDefault()
+//          阻止冒泡,比如点击,拖动等事件不会传递到它上层元素
+          e.cancelBubble = true
           this.translate(this.dragState.endOffsetX - this.prefix)
         } else if ( Math.abs(this.dragState.endOffsetX) > threshold && !this.dragState.verticalScrolling ) {
           e.preventDefault()
@@ -176,11 +227,11 @@
           if ( Math.abs(this.dragState.endOffsetX) > this.clientWidth / 2 || (Math.abs(this.dragState.endOffsetX) > 20 && interval < 500) ) {
             if ( this.dragState.endOffsetX > 0 ) {
               this.translate(this.clientWidth, true, ()=> {
-                this.setPagePostion(this.leftIndex, 'showPrev')
+                this.setPagePosition(this.leftIndex, 'showPrev')
               })
             } else {
               this.translate(-this.clientWidth, true, ()=> {
-                this.setPagePostion(this.rightIndex, 'showNext')
+                this.setPagePosition(this.rightIndex, 'showNext')
               })
             }
           } else {
@@ -198,7 +249,7 @@
       translate(offset, auto, callback){
         var element = this.container
         if ( auto ) {
-          element.style.webkitTransition = 'all ' + this.speed + 'ms ease'
+          element.style.webkitTransition = 'transform ' + this.speed + 'ms ease'
           setTimeout(() => element.style.webkitTransform = `translate3d(${offset}px, 0, 0)`, 50)
           var called = false
           var transitionEndCallback = () => {
@@ -223,7 +274,7 @@
         if ( this.auto > 0 ) {
           this.timer = setInterval(()=> {
             this.translate(-this.clientWidth, true, ()=> {
-              this.setPagePostion(this.rightIndex, 'showNext')
+              this.setPagePosition(this.rightIndex, 'showNext')
             })
           }, this.auto)
         }
