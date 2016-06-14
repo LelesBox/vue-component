@@ -112,7 +112,6 @@
       init(){
         this.childrenCount = this.$children.length
         this.container = this.$els.container
-
         // 在外部，当容器的子组件动态增加删除时，vue为了复用并不会真的把dom删除而是隐藏它
         // 这时候我们必须手动把该容器下的所有div元素的display全部初始化为‘none’
         Array.prototype.slice.call(this.container.children,0).map( item => {
@@ -130,6 +129,7 @@
           this.current.style.transform = this.current.style.webkitTransform = ''
           this.container.style.left = '0'
           this.showIndicators = false
+          clearInterval( this.timer )
         } else {
           this.container.style.left = '-100%'
           this.showIndicators = true
@@ -184,6 +184,8 @@
         this.right.style.display = 'block'
       },
       touchStart(e){
+        if( this.pages.length < 2 ) return
+
         if ( this.prevent ) {
           e.preventDefault();
         }
@@ -199,7 +201,7 @@
         this.dragState.startClientY = touches.clientY
       },
       touchMove(e){
-        if( this.pages.length === 1 ) return
+        if( this.pages.length < 2 ) return
         /*
          * 0.当上下移动距离小于8左右移动距离小于10时,我们不为所动
          * 1.当手指上下移动距离超过10px,则此次的所有操作都不会触发左右滚动 (需要额外全局参数,this.verticalScrolling)
@@ -233,7 +235,7 @@
         }
       },
       touchEnd(){
-        if ( this.dragState.onAnimate ) return
+        if ( this.dragState.onAnimate || this.pages.length < 2 ) return
         this.dragState.verticalScrolling = false
         /*
          * 这么做是为了当快速切换的时候,this.dragState.startTime 还没来记得触发touchstart事件初始化就开始触发touchend,导致
@@ -243,7 +245,7 @@
         if ( this.dragState.endOffsetX !== 0 && this.dragState.onDrag ) {
           this.dragState.onAnimate = true
           this.dragState.onDrag = false
-          if ( Math.abs(this.dragState.endOffsetX) > this.clientWidth / 2 || (Math.abs(this.dragState.endOffsetX) > 20 && interval < 500) ) {
+          if ( Math.abs(this.dragState.endOffsetX ) > this.clientWidth / 2 || (Math.abs( this.dragState.endOffsetX ) > 20 && interval < 500 ) ) {
             if ( this.dragState.endOffsetX > 0 ) {
               this.translate(this.clientWidth, true, ()=> {
                 this.setPagePosition(this.leftIndex, 'showPrev')
@@ -290,7 +292,7 @@
       },
       autoScroll(){
         clearInterval(this.timer)
-        if ( this.auto > 0 ) {
+        if ( this.auto > 0 && this.pages.length > 1 ) {
           this.timer = setInterval(()=> {
             this.translate(-this.clientWidth, true, ()=> {
               this.setPagePosition(this.rightIndex, 'showNext')

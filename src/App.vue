@@ -1,5 +1,5 @@
 <template>
-  <swipe class="swipe" :speed="300" :show-indicators="true" :auto="0" v-el:swipe1>
+  <swipe class="swipe" :speed="300" :show-indicators="true" :auto="3000" v-el:swipe1>
     <swipe-item v-for="n in number">
       <div class="item-{{n+1}}" style="height: 100%;width: 100%">{{n}}</div>
     </swipe-item>
@@ -69,7 +69,7 @@
 
   .swipe {
     /*margin-top: 200px;*/
-    height: 5.33rem;
+    height: 200px;
     width: 100%;
     /*background: blue;*/
     /*font-size: 10em;*/
@@ -108,7 +108,7 @@
   }
 
   .item-3 {
-    background: yellow;
+    background: pink;
   }
 
   .item-4 {
