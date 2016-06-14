@@ -67,7 +67,19 @@
         default: false
       }
     },
-    events: {},
+    events: {
+      // 当子组件个数改变时重新init
+      swipeItemCreated(){
+        if( this.childrenCount !== this.$children.length ){
+          this.init()
+        }
+      },
+      swipeItemDestroyed(){
+        if( this.childrenCount !== this.$children.length ){
+          this.init()
+        }
+      }
+    },
     data(){
       return {
         index: 0,
@@ -79,6 +91,7 @@
         container: null,
         timer: null,
         prefix: 0,
+        childrenCount:0,
         dragState: {
           startClientX: 0,
           startClietnY: 0,
@@ -95,22 +108,33 @@
       }
     },
     components: { swipeItem },
-    ready(){
-      this.init()
-    },
     methods: {
       init(){
+        this.childrenCount = this.$children.length
         this.container = this.$els.container
+
+        // 在外部，当容器的子组件动态增加删除时，vue为了复用并不会真的把dom删除而是隐藏它
+        // 这时候我们必须手动把该容器下的所有div元素的display全部初始化为‘none’
+        Array.prototype.slice.call(this.container.children,0).map( item => {
+          item.style.display = 'none'
+        })
         //不能使用 this.pages = this.container.children，因为之后我们会对container做insert操作，会导致this.pages变化，
         //而这里我们并不希望this.pages再出现动态的增加或者减少
-        this.pages = this.$children.map(item=>{
+        this.pages = this.$children.map( item => {
           return item.$el
         })
         if ( this.pages.length === 0 )return
         else if ( this.pages.length === 1 ) {
-          this.handleOnePage()
+          this.current = this.pages[0]
+          this.current.style.display = 'block'
+          this.current.style.transform = this.current.style.webkitTransform = ''
+          this.container.style.left = '0'
+          this.showIndicators = false
         } else {
+          this.container.style.left = '-100%'
+          this.showIndicators = true
           if( this.pages.length === 2 ) {
+            // 当只有两个子组件时，我们需要额外补充两个克隆组件才能填充长度为300%的容器，在setPagePosition会做处理
             this.tmpEl1 = this.pages[0].cloneNode( true )
             this.tmpEl2 = this.pages[1].cloneNode( true )
             this.container.insertBefore( this.tmpEl1 , this.container.firstChild )
@@ -121,11 +145,6 @@
           clearInterval( this.timer )
           this.autoScroll()
         }
-      },
-      handleOnePage(){
-        this.current=this.pages[0]
-        this.current.style.display='block'
-        this.container.style.left='0'
       },
       setPagePosition(index, direction){
         if ( direction === 'showPrev' ) {
@@ -214,7 +233,7 @@
         }
       },
       touchEnd(){
-        if ( this.dragState.onAnimate )return
+        if ( this.dragState.onAnimate ) return
         this.dragState.verticalScrolling = false
         /*
          * 这么做是为了当快速切换的时候,this.dragState.startTime 还没来记得触发touchstart事件初始化就开始触发touchend,导致

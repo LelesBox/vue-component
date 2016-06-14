@@ -1,14 +1,20 @@
 <template>
-  <swipe class="swipe" :speed="300" :show-indicators="true" :auto="0">
-    <swipe-item v-for="n in 5">
+  <swipe class="swipe" :speed="300" :show-indicators="true" :auto="0" v-el:swipe1>
+    <swipe-item v-for="n in number">
       <div class="item-{{n+1}}" style="height: 100%;width: 100%">{{n}}</div>
     </swipe-item>
+  </swipe>
+  <br>
+
+  <swipe class="my-swipe" :auto="0">
+    <swipe-item class="slide1">Slide1</swipe-item>
+    <swipe-item class="slide2">Slide2</swipe-item>
+    <swipe-item class="slide3">Slide3</swipe-item>
   </swipe>
   <br>
   <swipe class="my-swipe" :auto="0">
     <swipe-item class="slide1">Slide1</swipe-item>
     <swipe-item class="slide2">Slide2</swipe-item>
-    <!--<swipe-item class="slide3">Slide3</swipe-item>-->
   </swipe>
 
   <br>
@@ -29,9 +35,18 @@
   //  require('../component/vue-swiper.css')
   //  import { Swipe, SwipeItem } from '../component/vue-swiper'
   export default {
+    data(){
+      return {
+        number:5
+      }
+    },
     components: {
       Swipe,
       SwipeItem
+    },
+    ready(){
+      var sp = this.$els.swipe1
+      console.log(sp)
     }
   }
 </script>
