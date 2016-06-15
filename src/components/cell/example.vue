@@ -1,6 +1,7 @@
 <template lang="html">
-  <cell>
-    hello world
+  <br>
+  <cell v-for=' n in 9 ' class="cell">
+    <span>  hello world {{ n }}</span>
   </cell>
 </template>
 
@@ -24,5 +25,9 @@ export default {
 
 <style lang="scss">
   @import "../../scss/common.scss";
-
+  .cell {
+    height: px2rem(50px);
+    line-height: px2rem(35px);
+    padding: px2rem(10);
+  }
 </style>
