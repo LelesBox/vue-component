@@ -12,8 +12,11 @@
     "component": "webpack -p --config ./webpack.component.js"
   },
   "dependencies": {
+    "babel-runtime": "^6.0.0",
+    "node-sass": "^3.7.0",
+    "sass-loader": "^3.2.0",
     "vue": "^1.0.21",
-    "babel-runtime": "^6.0.0"
+    "vue-router": "^0.7.13"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",

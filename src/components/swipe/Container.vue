@@ -4,7 +4,7 @@
       <slot></slot>
     </div>
     <div class="indicatorContainer" v-show="showIndicators">
-      <div class="indicator" v-for="page in pages" :class="{ active: $index===index }"></div>
+      <div class="indicator" v-for="page in pages" :class="{ active: $index === index }"></div>
     </div>
   </div>
 </template>
@@ -33,10 +33,10 @@
 
   .indicator {
     border-radius: 50%;
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
     float: left;
-    margin: 0 3px;
+    margin: 0 6px;
     background: #000000;
   }
 
@@ -68,7 +68,6 @@
       }
     },
     events: {
-      // 当子组件个数改变时重新init
       swipeItemCreated(){
         if( this.childrenCount !== this.$children.length ){
           this.init()
@@ -102,7 +101,7 @@
           onAnimate: false,
           verticalScrolling: false
         },
-        // 当swipeItem只有两个时，需要用到这两个临时元素，使用两个字段保存是为了防止过多的使用cloneNode方法，看setPagePostion方法
+        // 当swipeItem只有两个时，需要用到这两个临时元素，使用两个字段保存是为了防止过多的使用cloneNode方法，看init方法对this.pages.length === 2时的处理
         tmpEl1:null,
         tmpEl2:null
       }

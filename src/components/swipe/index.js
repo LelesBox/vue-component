@@ -1,5 +1,5 @@
-import Swipe from './Container.vue'
-import SwipeItem from './Item.vue'
+import Swipe from './Container'
+import SwipeItem from './Item'
 
 export {
   Swipe,

@@ -1,8 +1,12 @@
 import Vue from 'vue'
-import App from './App'
+import routerMap from './router'
+import VueRouter from 'vue-router'
+require('./scss/_global.scss')
+
+Vue.use( VueRouter )
+
+var router = new VueRouter()
+router.map( routerMap )
 
 /* eslint-disable no-new */
-new Vue({
-  el: 'body',
-  components: { App }
-})
+router.start(Vue.extend({}), 'body')
