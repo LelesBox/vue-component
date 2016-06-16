@@ -41,7 +41,6 @@
           this.lastIndex = index
         }
       }
-    },
-    components: {}
+    }
   }
 </script>

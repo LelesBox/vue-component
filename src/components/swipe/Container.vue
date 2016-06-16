@@ -29,6 +29,7 @@
     bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
+    z-index: 999;
   }
 
   .indicator {

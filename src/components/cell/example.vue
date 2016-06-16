@@ -12,7 +12,7 @@
     自定义icon样式
   </p>
   <br>
-  <cell v-for=' n in 4 ' class="cell">
+  <cell v-for=' n in 4 ' class="cell2">
     <span>  hello world {{ n }}</span>
     <i slot="icon" class = "arrow">
       {{ n }}
@@ -38,14 +38,17 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   @import "../../scss/common.scss";
   .cell {
     height: px2rem(50px);
-    line-height: px2rem(50px);
   }
 
-  .arrow{
+  .cell2 {
+    height: px2rem(70px);
+  }
+
+  .arrow {
     height: 35px;
     width: 55px;
     display: block;

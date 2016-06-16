@@ -1,7 +1,9 @@
 <template lang="html">
   <div data-class>
-    <slot></slot>
-    <div cell-icon>
+    <div cell-content>
+      <slot></slot>
+    </div>
+    <div cell-icon cell-content>
       <slot name = "icon">
         <i class="default-arrow"></i>
       </slot>
@@ -23,7 +25,6 @@
       width: 100%;
       position: absolute;
       top:-1px;
-      // background-image: linear-gradient(to right, rgba(0, 0, 0, .14), rgba(0, 0, 0, .3), rgba(0, 0, 0, .3), rgba(0, 0, 0, .14));
       background-color: #d9d9d9;
     }
     &:after{
@@ -33,16 +34,18 @@
       width: 100%;
       position: absolute;
       bottom:0px;
-      // background-image: linear-gradient(to right, rgba(0, 0, 0, .14), rgba(0, 0, 0, .2), rgba(0, 0, 0, .2), rgba(0, 0, 0, .14));
       background-color: #d9d9d9;
     }
   }
 
-  [cell-icon]{
+  [cell-content]{
     position: absolute;
     top:50%;
-    right: 5%;
     transform: translateY( -50% )
+  }
+
+  [cell-icon]{
+    right: 5%;
   }
 
   .default-arrow{

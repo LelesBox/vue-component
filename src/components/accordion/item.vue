@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="header" :style="headerStyle" @touchend="openItem">
+    <div class="header" :style="headerStyle" @touchend="openItem" @touchmove='move'>
       <div class="title" v-text="title"></div>
       <svg class="icon" viewBox="0,0,22,22" v-show="!open">
         <path d="M 0 11 L 22 11" stroke-width="2" stroke="#5F5F5F"></path>
@@ -75,7 +75,8 @@
     },
     data(){
       return {
-        contentHeight: 0
+        contentHeight: 0,
+        onmove:false
       }
     },
     ready(){
@@ -83,8 +84,14 @@
     },
     methods: {
       openItem: function () {
-        this.open = !this.open
-        this.$dispatch('tap', this.index)
+        if( !this.onmove ){
+          this.open = !this.open
+          this.$dispatch('tap', this.index)
+        }
+        this.onmove = false
+      },
+      move(){
+        this.onmove = true
       }
     },
     computed: {
