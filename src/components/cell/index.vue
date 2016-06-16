@@ -41,7 +41,7 @@
   [cell-content]{
     position: absolute;
     top:50%;
-    transform: translateY( -50% )
+    transform: translateY( -50% );
   }
 
   [cell-icon]{
@@ -49,11 +49,11 @@
   }
 
   .default-arrow{
-    height: 15px;
-    width: 15px;
+    height: 20px;
+    width: 20px;
     display: block;
-    border-top:1px solid rgba(0, 0, 0, .8);
-    border-right: 1px solid rgba(0, 0, 0, .8);
+    border-top:1px solid rgba(0, 0, 0, .5);
+    border-right: 1px solid rgba(0, 0, 0, .5);
     transform:rotate( 45deg );
   }
 </style>
