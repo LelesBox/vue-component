@@ -1,7 +1,22 @@
 <template lang="html">
   <br>
-  <cell v-for=' n in 9 ' class="cell">
+  <p style='text-align:center'>
+    默认样式
+  </p>
+  <br>
+  <cell v-for=' n in 3 ' class="cell">
     <span>  hello world {{ n }}</span>
+  </cell>
+  <br>
+  <p style='text-align:center'>
+    自定义icon样式
+  </p>
+  <br>
+  <cell v-for=' n in 4 ' class="cell">
+    <span>  hello world {{ n }}</span>
+    <i slot="icon" class = "arrow">
+      {{ n }}
+    </i>
   </cell>
 </template>
 
@@ -27,7 +42,17 @@ export default {
   @import "../../scss/common.scss";
   .cell {
     height: px2rem(50px);
-    line-height: px2rem(35px);
-    padding: px2rem(10);
+    line-height: px2rem(50px);
+  }
+
+  .arrow{
+    height: 35px;
+    width: 55px;
+    display: block;
+    border-radius: 35px;
+    background-color: red;
+    line-height: 35px;
+    text-align: center;
+    color: #fff;
   }
 </style>
