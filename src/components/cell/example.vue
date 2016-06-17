@@ -1,54 +1,15 @@
-<template lang="html">
-  <br>
-  <p style='text-align:center'>
-    默认样式
-  </p>
-  <br>
-  <cell v-for=' n in 3 ' class="cell">
-    <span>  hello world {{ n }}</span>
-  </cell>
-  <br>
-  <p style='text-align:center'>
-    自定义icon样式
-  </p>
-  <br>
-  <cell v-for=' n in 4 ' class="cell2">
-    <span>  hello world {{ n }}</span>
-    <i slot="icon" class = "arrow">
-      {{ n }}
-    </i>
-  </cell>
-</template>
-
-<script>
-import cell from '.'
-
-export default {
-  data: function () {
-    return {
-    }
-  },
-  computed: {},
-  ready: function () {},
-  attached: function () {},
-  methods: {},
-  components: {
-    cell
-  }
-}
-</script>
-
 <style lang="scss" scoped>
-  @import "../../scss/common.scss";
-  .cell {
+
+@import "../../scss/common.scss";
+.cell {
     height: px2rem(50px);
-  }
+}
 
-  .cell2 {
+.cell2 {
     height: px2rem(70px);
-  }
+}
 
-  .arrow {
+.arrow {
     height: 35px;
     width: 55px;
     display: block;
@@ -57,5 +18,49 @@ export default {
     line-height: 35px;
     text-align: center;
     color: #fff;
-  }
+}
+
 </style>
+
+<template lang="html">
+
+<br>
+<p style='text-align:center'>
+    默认样式
+</p>
+<br>
+<cell v-for=' n in 3 ' class="cell">
+    <span>  hello world {{ n }}</span>
+</cell>
+<br>
+<p style='text-align:center'>
+    自定义icon样式
+</p>
+<br>
+<cell v-for=' n in 4 ' class="cell2">
+    <span>  hello world {{ n }}</span>
+    <i slot="icon" class="arrow">
+      {{ n }}
+    </i>
+</cell>
+
+</template>
+
+<script>
+
+import cell from '.'
+
+export default {
+    data: function() {
+        return {}
+    },
+    computed: {},
+    ready: function() {},
+    attached: function() {},
+    methods: {},
+    components: {
+        cell
+    }
+}
+
+</script>

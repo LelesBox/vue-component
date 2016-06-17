@@ -2,6 +2,14 @@
 
 > Another vue-swipe
 
+## Component
+
+ - [x] Cell
+ - [x] Accordion
+ - [x] Swipe
+ - [ ] 侧边栏
+ - [ ] 时间线
+
 ## Build Setup
 
 ``` bash

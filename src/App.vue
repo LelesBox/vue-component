@@ -1,49 +1,51 @@
+<style lang="scss">
+
+.container {
+    color: green;
+}
+
+.cell {
+    font-size: .4rem;
+}
+
+i.fa {
+    margin-right: 10px;
+}
+
+</style>
+
 <template lang="html">
-  <div class="container">
-    <p style="text-align:center;font-size:1rem;height:3rem;line-height:3rem;">keep calm & coding</p>
+
+<div class="container">
+    <p style="text-align:center;font-size:.6rem;height:2rem;line-height:2rem;">KEEP CALM & CODING</p>
     <cell class="cell" v-link="{ path: '/cell' }">
-      <i class="fa fa-list"></i>
-      Cell
+        <i class="fa fa-list"></i> Cell
     </cell>
     <cell class="cell" v-link="{ path: '/accordion' }">
-      <i class="fa fa-indent"></i>
-      Accordion
+        <i class="fa fa-indent"></i> Accordion
     </cell>
     <cell class="cell" v-link="{ path: '/swipe' }">
-      <i class="fa fa-arrows-h"></i>
-      Swipe
+        <i class="fa fa-arrows-h"></i> Swipe
     </cell>
-  </div>
+</div>
+
 </template>
 
 <script>
+
 import cell from './components/cell'
 
 export default {
-  data: function () {
-    return {
+    data: function() {
+        return {}
+    },
+    computed: {},
+    ready: function() {},
+    attached: function() {},
+    methods: {},
+    components: {
+        cell
     }
-  },
-  computed: {},
-  ready: function () {},
-  attached: function () {},
-  methods: {},
-  components: {
-    cell
-  }
 }
-</script>
 
-<style lang="scss">
-  .container{
-    color:green;
-  }
-  .cell {
-    font-size: .5rem;
-  }
-  i.fa{
-    height: 32px;
-    width: 32px;
-    margin-right: 10px;
-  }
-</style>
+</script>

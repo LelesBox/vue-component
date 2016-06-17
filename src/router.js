@@ -1,13 +1,13 @@
 import App from './App'
 import cellExample from './components/cell/example'
-import  accordionExample  from './components/accordion/example'
-import  swipeExample  from './components/swipe/example'
+import accordionExample from './components/accordion/example'
+import swipeExample from './components/swipe/example'
 
 export default {
   '/': {
     component: App
   },
-  '/cell':{
+  '/cell': {
     component: cellExample
   },
   '/accordion': {
