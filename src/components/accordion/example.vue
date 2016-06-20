@@ -24,46 +24,6 @@
             zxcz阿斯达xc
         </div>
     </accordion-item>
-    <accordion-item title="3.REVIEW">
-        <div style="height: 200px;width: 100%;background: red">
-            zxczxllxlxlxlxlxlxl
-        </div>
-    </accordion-item>
-    <accordion-item title="3.TEST">
-        <div style="height: 400px;width: 100%;background: red">
-            zxcz阿斯达xc
-        </div>
-    </accordion-item>
-    <accordion-item title="3.REVIEW">
-        <div style="height: 200px;width: 100%;background: red">
-            zxczxllxlxlxlxlxlxl
-        </div>
-    </accordion-item>
-    <accordion-item title="3.TEST">
-        <div style="height: 400px;width: 100%;background: red">
-            zxcz阿斯达xc
-        </div>
-    </accordion-item>
-    <accordion-item title="3.REVIEW">
-        <div style="height: 200px;width: 100%;background: red">
-            zxczxllxlxlxlxlxlxl
-        </div>
-    </accordion-item>
-    <accordion-item title="3.TEST">
-        <div style="height: 400px;width: 100%;background: red">
-            zxcz阿斯达xc
-        </div>
-    </accordion-item>
-    <accordion-item title="3.REVIEW">
-        <div style="height: 200px;width: 100%;background: red">
-            zxczxllxlxlxlxlxlxl
-        </div>
-    </accordion-item>
-    <accordion-item title="3.TEST">
-        <div style="height: 400px;width: 100%;background: red">
-            zxcz阿斯达xc
-        </div>
-    </accordion-item>
 </accordion>
 
 </template>

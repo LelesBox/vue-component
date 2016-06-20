@@ -10,7 +10,6 @@
         <path d="M 0 11 L 22 11" stroke-width="2" stroke="#5F5F5F"></path>
       </svg>
     </div>
-    <div class="bottomLine"></div>
     <div class="content" :style="contentStyle" v-el:content>
       <div>
         <slot></slot>
@@ -29,6 +28,24 @@
     line-height: px2rem(56.8);
     letter-spacing: 2px;
     z-index: 2;
+    &:before {
+        content: '';
+        display: block;
+        height: 1px;
+        width: 100%;
+        position: absolute;
+        top: 0px;
+        background-color: #d9d9d9;
+    }
+    &:after {
+        content: '';
+        display: block;
+        height: 1px;
+        width: 100%;
+        position: absolute;
+        bottom: -1px;
+        background-color: #d9d9d9;
+    }
   }
 
   .bottomLine {

@@ -11,7 +11,7 @@
         height: 1px;
         width: 100%;
         position: absolute;
-        top: -1px;
+        top: 0px;
         background-color: #d9d9d9;
     }
     &:after {
@@ -20,7 +20,7 @@
         height: 1px;
         width: 100%;
         position: absolute;
-        bottom: 0px;
+        bottom: -1px;
         background-color: #d9d9d9;
     }
 }
