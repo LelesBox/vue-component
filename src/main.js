@@ -1,4 +1,5 @@
 import Vue from 'vue'
+require('./directives/gesture')
 import routerMap from './router'
 import VueRouter from 'vue-router'
 require('./scss/_global.scss')
@@ -10,3 +11,5 @@ router.map(routerMap)
 
 /* eslint-disable no-new */
 router.start(Vue.extend({}), 'body')
+
+window.Vue = Vue
