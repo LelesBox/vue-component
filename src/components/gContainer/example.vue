@@ -1,4 +1,4 @@
-<style lang="css">
+<style lang="css" scoped>
 .container{
   height: 100%;
   width: 100%;
@@ -27,7 +27,7 @@ export default {
     attached: function() {},
     methods: {
       gContainerUpdate: function (offsetx, offsety) {
-        
+
       }
     },
     components: {

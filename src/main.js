@@ -11,5 +11,4 @@ router.map(routerMap)
 
 /* eslint-disable no-new */
 router.start(Vue.extend({}), 'body')
-
 window.Vue = Vue
