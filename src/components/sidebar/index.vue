@@ -3,7 +3,6 @@
 .container {
     height: 100%;
     width: 100%;
-    background-color: red;
     overflow: hidden;
 }
 
@@ -13,7 +12,6 @@
     top: 0;
     height: 100%;
     width: 80%;
-    background: green;
     z-index: 1;
 }
 
@@ -39,7 +37,8 @@
     <div class="content" v-el:content
      @touchstart="touchStart"
      @touchmove="touchMove"
-     @touchend="touchEnd">
+     @touchend="touchEnd"
+     @click="click">
     </div>
 </div>
 
@@ -117,6 +116,13 @@ export default {
             } else {
               this.translate(this.offsetThreshold,true)
             }
+          }
+        },
+        click(){
+          if(this.isOpen){
+            this.translate(0,true,()=>{
+              this.isOpen = false
+            })
           }
         },
         translate(offset,animate,cb){
