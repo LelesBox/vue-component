@@ -25,7 +25,9 @@
         </div>
     </accordion-item>
 </accordion>
+<div style="background-color:yellow;height:200px;">
 
+</div>
 </template>
 
 <script type="text/ecmascript-6">

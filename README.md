@@ -7,8 +7,6 @@
  - [x] Cell
  - [x] Accordion
  - [x] Swipe
- - [ ] 侧边栏
- - [ ] 时间线
 
 ## Build Setup
 
@@ -26,7 +24,7 @@ npm run build
 npm run component
 ```
 
-> vue-swiper 是一款移动端图片轮播组件，代码实现参考了[vue-swipe](https://github.com/ElemeFE/vue-swipe)的一些思路，并针对它的缺点自己做了些优化
+> 其中里面的swipe 是一款移动端图片轮播组件，代码实现参考了[vue-swipe](https://github.com/ElemeFE/vue-swipe)的一些思路，并针对它的缺点自己做了些优化
 
 ### 它最主要的缺点有两个：
 

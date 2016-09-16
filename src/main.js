@@ -1,5 +1,4 @@
 import Vue from 'vue'
-require('./directives/gesture')
 import routerMap from './router'
 import VueRouter from 'vue-router'
 require('./scss/_global.scss')

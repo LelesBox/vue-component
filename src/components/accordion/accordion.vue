@@ -3,8 +3,8 @@
 /*这里设定z-index的功能自己体会*/
 
 .container {
-    position: relative;
-    z-index: 999;
+    /*position: relative;*/
+    /*z-index: 999;*/
 }
 
 </style>

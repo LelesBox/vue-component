@@ -1,7 +1,7 @@
 {
-  "name": "vue-swiper",
+  "name": "vue-component",
   "version": "1.0.0",
-  "description": "Another vue-swipe",
+  "description": "Another components",
   "author": "LelesBox <li_xiaoliang@foxmail.com>",
   "private": true,
   "scripts": {

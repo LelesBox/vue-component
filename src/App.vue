@@ -27,9 +27,6 @@ i.fa {
     <cell class="cell" v-link="{ path: '/swipe' }">
         <i class="fa fa-arrows-h"></i> Swipe
     </cell>
-    <cell class="cell" v-link="{ path: '/sidebar'}">
-      <i class="fa fa-bars"></i> SideBar
-    </cell>
 </div>
 
 </template>
