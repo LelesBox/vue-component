@@ -17,7 +17,10 @@ i.fa {
 <template lang="html">
 
 <div class="container">
-    <p style="text-align:center;font-size:.6rem;height:2rem;line-height:2rem;">KEEP CALM & CODING</p>
+    <p style="text-align:center;font-size:.6rem;height:2rem;line-height:2rem;">{{title}}</p>
+    <!-- <p>
+      请在移动端下使用
+    </p> -->
     <cell class="cell" v-link="{ path: '/cell' }">
         <i class="fa fa-list"></i> Cell
     </cell>
@@ -37,12 +40,20 @@ import cell from './components/cell'
 
 export default {
     data: function() {
-        return {}
+        return {
+          title: '请在移动端下使用'
+        }
     },
-    computed: {},
-    ready: function() {},
-    attached: function() {},
-    methods: {},
+    ready: function() {
+      if (window.navigator.userAgent.toLowerCase().indexOf('mobile') !== -1) {
+        this.title = 'KEEP CALM & CODING'
+      }
+      window.onresize = () => {
+        if (window.navigator.userAgent.toLowerCase().indexOf('mobile') !== -1) {
+          this.title = 'KEEP CALM & CODING'
+        }
+      }
+    },
     components: {
         cell
     }
